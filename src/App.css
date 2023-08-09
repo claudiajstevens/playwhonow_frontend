@@ -36,3 +36,9 @@
     transform: rotate(360deg);
   }
 }
+
+table {
+  min-width: 748px;
+  max-width: 763px;
+  table-layout: fixed;
+}
