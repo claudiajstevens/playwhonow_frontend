@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useMemo } from 'react';
 import axios from 'axios';
-import Table from './Table';
-import "./App.css";
+import Table from '../Table';
+import "../App.css";
 
 function Searcher(props) {
     const [searchKey, setSearchKey] = useState("")

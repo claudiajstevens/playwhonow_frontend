@@ -1,7 +1,10 @@
 import './App.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import Searcher from './Searcher';
+import Searcher from './components/Searcher';
+import NavBar from './components/NavBar';
+import Hero from './components/Hero/Hero';
+
 
 function App() {
   const CLIENT_ID = "58f1e32db8984bf8a52539fb48a602e1"
@@ -82,7 +85,10 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
+      <div className="App-header">
+        <NavBar />
+        <Hero />
+
         <h1>Festival Playlist Generator</h1>
         {!token ?
             <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login
@@ -103,7 +109,7 @@ function App() {
         <Searcher token={token} />
 
 
-      </header>
+      </div>
     </div>
   );
 }
