@@ -42,3 +42,19 @@ table {
   max-width: 763px;
   table-layout: fixed;
 }
+
+
+/*    ~~~~~ HERO CSS ~~~~~    */
+
+.hero{
+  background: rgb(255,9,30);
+  background: linear-gradient(90deg, rgba(255,9,30,1) 0%, rgba(241,0,255,1) 100%);
+}
+
+
+
+/*
+  Gradient Resources: 
+    cssgradient.io
+
+*/
