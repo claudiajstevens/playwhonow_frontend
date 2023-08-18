@@ -2,8 +2,7 @@ import './App.css';
 import {
   BrowserRouter as Router,
   Routes,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -16,6 +15,40 @@ import Profile from './views/Profile';
 
 
 function App() {
+
+  const  reqBody = {
+    "username": "cloud",
+    "password": "password"
+  }
+
+  // fetch("/auth/register", {
+  //   headers: {
+  //     "Content-Type": "application/json"
+  //   },
+  //   method: "post",
+  //   body: JSON.stringify(reqBody)
+  // });
+
+  useEffect( () => {
+    fetch("/auth/login", {
+      headers: {
+        "Content-Type": "application/json"
+      },
+      method: "post",
+      body: JSON.stringify(reqBody)
+    })
+    .then(response => Promise.all([response.json(), response.headers]))
+    .then(([body, headers]) => console.log(body.jwt));
+  }, []);
+
+
+  //adding connection to spring boot application
+  // fetch returns a promise
+  useEffect( () => {
+    fetch('/hello?name="Cloud"')
+    .then(response=>response.text())
+    .then(result=>console.log(result));
+  }, []);
 
   return (
     <div>
