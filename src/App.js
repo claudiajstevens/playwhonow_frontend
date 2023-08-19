@@ -13,6 +13,8 @@ import Hero from './components/Hero/Hero';
 import Home from './views/Home';
 import Profile from './views/Profile';
 import { useLocalState } from './util/useLocalStorage';
+import Login from './components/Login';
+import PrivateRoute from './PrivateRoute/PrivateRoute';
 
 
 function App() {
@@ -30,27 +32,27 @@ function App() {
 
   // fetch returns a promise
   // the array of the second argument is dependencies 
-  useEffect( () => {
-    if( !jwt ){
-      const  reqBody = {
-        "username": "cloud",
-        "password": "password"
-      };
+  // useEffect( () => {
+  //   if( !jwt ){
+  //     const  reqBody = {
+  //       "username": "cloud",
+  //       "password": "password"
+  //     };
 
-      fetch("/auth/login", {
-        headers: {
-          "Content-Type": "application/json"
-      },
-      method: "post",
-      body: JSON.stringify(reqBody)
-      })
-      .then(response => Promise.all([response.json(), response.headers]))
-      .then(([body, headers]) => {
-        setJwt(body.jwt);  
-      });
-    }
+  //     fetch("/auth/login", {
+  //       headers: {
+  //         "Content-Type": "application/json"
+  //     },
+  //     method: "post",
+  //     body: JSON.stringify(reqBody)
+  //     })
+  //     .then(response => Promise.all([response.json(), response.headers]))
+  //     .then(([body, headers]) => {
+  //       setJwt(body.jwt);  
+  //     });
+  //   }
 
-  }, []);
+  // }, []);
 
   useEffect( () => {
     console.log(`JWT is: ${jwt}`);
@@ -71,7 +73,12 @@ function App() {
         <NavBar />
 
         <Routes>
-          <Route path="/profile" element={<Profile />}></Route>
+          <Route path="/profile" element={
+            <PrivateRoute>
+              <Profile />
+            </PrivateRoute>
+          }></Route>
+          <Route path="/login" element={<Login />}></Route>
           <Route path="/" element={<Home />}></Route>
         </Routes>
       </Router>
