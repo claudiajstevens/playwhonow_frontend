@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import Hero from "../components/Hero/Hero";
 import Searcher from "../components/Searcher";
+import SpotifyGetPlaylists from "../components/SpotifyGetPlaylists/SpotifyGetPlaylists";
 
 
 const Home = () => {
@@ -12,6 +13,9 @@ const Home = () => {
     const RESPONSE_TYPE = "token"
   
     const [token, setToken] = useState("")
+
+    const SCOPES = ["user-read-currently-playing", "user-read-playback-state"];
+
       // for fetching data
       const [searchKey, setSearchKey] = useState("")
       const [artists, setArtists] = useState([])
@@ -86,12 +90,15 @@ const Home = () => {
     return (
         <div>
             <Hero />
+            
 
             <h1>Festival Playlist Generator</h1>
             {!token ?
                 <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login
                 to Spotify</a>
                 : <button onClick={logout}>Logout</button>}
+
+            <SpotifyGetPlaylists token={token}/> 
 
             {token ?
                 <form onSubmit={searchArtists}>
@@ -104,7 +111,8 @@ const Home = () => {
 
             {renderArtists()}
 
-            <Searcher token={token} />
+            <Searcher />
+
         </div>
     )
 }

@@ -13,8 +13,9 @@ import Hero from './components/Hero/Hero';
 import Home from './views/Home';
 import Profile from './views/Profile';
 import { useLocalState } from './util/useLocalStorage';
-import Login from './components/Login';
+import Login from './components/Login/Login';
 import PrivateRoute from './PrivateRoute/PrivateRoute';
+import SignUp from './components/SignUp/SignUp';
 
 
 function App() {
@@ -79,6 +80,7 @@ function App() {
             </PrivateRoute>
           }></Route>
           <Route path="/login" element={<Login />}></Route>
+          <Route path="signup" element={<SignUp />} />
           <Route path="/" element={<Home />}></Route>
         </Routes>
       </Router>

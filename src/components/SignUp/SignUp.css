@@ -1,0 +1,26 @@
+.container{
+    margin: 100px auto;
+    width: 200px;
+}
+
+form{
+    box-sizing: border-box;
+}
+
+input{
+    display: block;
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+}
+
+label{
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+button {
+    margin-top: 5px;
+    
+}

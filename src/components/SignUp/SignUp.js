@@ -1,22 +1,23 @@
 import React, { useState } from 'react';
-import { useLocalState } from '../../util/useLocalStorage';
+import "./SignUp.css";
 
-const Login = () => {
+const SignUp = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [jwt, setJwt] = useLocalState("", "jwt");
+    const [email, setEmail] = useState("");
 
-    function sendLoginRequest() {
+    function sendSignUpRequest() {
         console.log("I'm sending a request...");
 
         const  reqBody = {
             "username": username,
             "password": password,
+            "email": email,
         };
 
         console.log(JSON.stringify(reqBody));
 
-        fetch("/auth/login", {
+        fetch("/auth/register", {
             headers: {
             "Content-Type": "application/json"
         },
@@ -26,16 +27,14 @@ const Login = () => {
             .then((response) => {
                 console.log(response.status);
                 if(response.status === 200){
-
                     return Promise.all([response.json(), response.headers]);
                 }else{
-                    return Promise.reject("Invalid login attempt");
+                    return Promise.reject("Unable to sign up");
                 }
                 
             })
             .then(([body, headers]) => {
-                setJwt(body.jwt);  
-                window.location.href = "profile";
+                window.location.href = "login";
             })
             .catch((message) => {
                 alert(message);
@@ -43,28 +42,59 @@ const Login = () => {
     }
 
     return (
-        <>
-            <div>
+        <div className="container">
+            <h1>Sign Up!</h1>
+            <form>
+                <label htmlFor="email">Email: </label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    value={email} 
+                    onChange={ e => setEmail(e.target.value)} />
                 <label htmlFor='username'>Username: </label>
                 <input 
                     id="username" 
                     value={username} 
                     onChange={ (e) => setUsername(e.target.value)} />
-            </div>
-            <div>
                 <label htmlFor="password">Password: </label>
                 <input 
                     type="password" 
                     id="password" 
                     value={password} 
                     onChange={ (e) => setPassword(e.target.value)}/>
-            </div>
-            <div>
-                <button id="submit" type="button" onClick={() => sendLoginRequest()}>Login</button>
-            </div>        
-        </>
-
+                <button id="submit" type="button" onClick={() => sendSignUpRequest()}>Sign Up</button>
+            </form>
+        </div>
     );
 };
 
-export default Login;
+export default SignUp;
+
+
+
+{/* <div>
+<label htmlFor="email">Email: </label>
+<input 
+    type="email" 
+    id="email" 
+    value={email} 
+    onChange={ e => setEmail(e.target.value)} />
+</div>
+<div>
+<label htmlFor='username'>Username: </label>
+<input 
+id="username" 
+value={username} 
+onChange={ (e) => setUsername(e.target.value)} />
+</div>
+<div>
+<label htmlFor="password">Password: </label>
+<input 
+    type="password" 
+    id="password" 
+    value={password} 
+    onChange={ (e) => setPassword(e.target.value)}/>
+</div>
+<div>
+<button id="submit" type="button" onClick={() => sendSignUpRequest()}>Sign Up</button>
+</div>  */}
