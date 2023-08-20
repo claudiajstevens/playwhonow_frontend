@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Searcher from './components/Searcher';
 import NavBar from './components/NavBar';
@@ -16,6 +17,7 @@ import { useLocalState } from './util/useLocalStorage';
 import Login from './components/Login/Login';
 import PrivateRoute from './PrivateRoute/PrivateRoute';
 import SignUp from './components/SignUp/SignUp';
+import Festivals from './views/Festivals';
 
 
 function App() {
@@ -79,6 +81,7 @@ function App() {
               <Profile />
             </PrivateRoute>
           }></Route>
+          <Route path="/festivals" element={<Festivals />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="signup" element={<SignUp />} />
           <Route path="/" element={<Home />}></Route>

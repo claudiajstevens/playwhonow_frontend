@@ -12,7 +12,7 @@ function Searcher(props) {
     const [topSongs, setTopSongs] = useState([])
     const [tS, setTS] = useState([]);
     const artist_info = {name: "", tracks: []}
-    const topTracks = []
+    const [topTracks, setTopTracks] = useState({});
 
     const access_token = props.token
     
