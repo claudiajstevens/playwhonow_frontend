@@ -9,7 +9,7 @@ const AddFestivalForm = () => {
     function sendAddFestivalRequest(){
 
         const reqBody = {
-            "festivalName": name,
+            "name": name,
             // "startDate": startDate,
             // "endDate": endDate,
             "location": location
