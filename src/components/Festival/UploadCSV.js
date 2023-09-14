@@ -35,7 +35,7 @@ const UploadCSV = () => {
                 accept='.csv'
                 onChange={handleFileChange} />
             <button
-                onClick={handleUpload}>Import Festival</button>
+                onClick={handleUpload}>Import Festivals</button>
         </div>
     );
 };
