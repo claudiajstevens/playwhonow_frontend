@@ -18,6 +18,7 @@ import Login from './components/Login/Login';
 import PrivateRoute from './PrivateRoute/PrivateRoute';
 import SignUp from './components/SignUp/SignUp';
 import Festivals from './views/Festivals';
+import Festival from './components/Festival/Festival';
 
 
 function App() {
@@ -85,6 +86,7 @@ function App() {
           <Route path="/login" element={<Login />}></Route>
           <Route path="signup" element={<SignUp />} />
           <Route path="/" element={<Home />}></Route>
+          <Route path="/festivals/:id" element={<Festival />}></Route>
         </Routes>
       </Router>
     </div>

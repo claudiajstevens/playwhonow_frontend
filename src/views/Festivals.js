@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import AddFestivalForm from '../components/Festival/AddFestivalForm';
 import UploadCSV from '../components/Festival/UploadCSV';
 import axios from 'axios';
@@ -19,10 +20,9 @@ const Festivals = () => {
 
     const displayFestivals = () => {
         return festivals.map(festival => (
-            <h2 key={festival.id}>{festival.name}</h2>
+            <h2 key={festival.id} className="festivals"><Link to={`/festivals/${festival.id}`}>{festival.name}, {festival.city}</Link></h2>
         ));
     }
-
 
     return (
         <div>
