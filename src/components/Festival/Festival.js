@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
-import FestivalYear from './FestivalYear';
+import FestivalYears from './FestivalYears';
 import UploadCSV from './UploadLineupCSV';
 
 const Festival = () => {
@@ -41,12 +41,6 @@ const Festival = () => {
         "July", "August", "September", "October", "November", "December"
     ];
 
-    const libyears = () => {
-        console.log(festival.name);
-        if( festival.name === "Life is Beautiful"){
-            return <FestivalYear />
-        }
-    }
 
         return (
             <div>
@@ -63,7 +57,7 @@ const Festival = () => {
                     ))}
                 </div>
                 <UploadCSV />
-                {/* <FestivalYear /> */}
+                <FestivalYears festivalId={id}/>
 
             </div>
         );

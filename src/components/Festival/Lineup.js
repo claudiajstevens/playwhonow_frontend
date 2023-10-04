@@ -5,7 +5,10 @@ import axios from 'axios';
 // Allowed extensions for input file
 const allowedExtensions = ["csv"];
 
-const UploadCSV = () => {
+
+const Lineup = ( {lineupId} ) => {
+    const [lineup, setLineup] = useState([null]);
+
     // State to hold parsed data
     const [parsedData, setParsedData] = useState([null]);
 
@@ -17,74 +20,27 @@ const UploadCSV = () => {
     
     // states for uploading csv file
     const [csvFile, setCsvFile] = useState("");
+
     const [error, setError] = useState("");
 
-    useEffect ( () => {
-        if ( parsedData ) {
-            console.log("In upload csv");
-            console.log(parsedData);
-            console.log(JSON.stringify(parsedData));
-    
-            axios.post('/lineup/import-lineups', parsedData, {
-                headers: {
-                  'Content-Type': 'application/json', // Set the content type to JSON
-                },
-                })
-                .then((response) => {
-                    console.log(response);
-                    console.log('Response from server: ' + response.data);
-                    //console.log('Festival Lineups uploaded successfully');
-                })
-                .catch((error) => {
-                    console.error("Error:", error);
-                });
-        }
+    const [dataFetched, setDataFetched] = useState(false);
 
-    }, [parsedData]);
-
-    const uploadCSV = () => {
-        console.log("In upload csv");
-        console.log(parsedData);
-        console.log(JSON.stringify(parsedData));
-
-        axios.post('/lineup/import-lineups', JSON.stringify(parsedData), {
-            headers: {
-                'Content-Type': 'application/json',
-              },
-        })
-            .then((response) => {
-                console.log(response);
-                console.log('Response from server: ' + response.data);
-                console.log('Festival Lineups uploaded successfully');
+    useEffect( () => {
+        console.log(lineupId);
+        axios.get(`/lineupArtist/${lineupId}`)
+            .then( response => {
+                console.log(response.data);
+                setLineup(response.data.artists);
             })
-            .catch((error) => {
-                console.error("Error:", error);
-            });
-    };
+            .catch ( error => {
+                console.error("Error fetching data:", error);
+            })
+    }, []);
 
     const handleParseCSV = () => {
         // if user clicks the parse button without a file we show an error
         if (!csvFile) return setError("Enter a valid file");
 
-        // // Initialize a reader which allows user to read any file or blob
-        // const reader = new FileReader();
-
-        // // Event listener on reader when the file loads,
-        // // we parse it and set the data
-        // reader.onload = async ({ target }) => {
-        //     const csv = Papa.parse(target.result, { header: true });
-        //     const csvParsedData = csv?.data;
-        //     setParsedData(csvParsedData);
-        //     const columns = Object.keys(csvParsedData[0]);
-        //     console.log(csv);
-        //     setTableRows(columns);
-        //     console.log(columns);
-        //     console.log(parsedData);
-        //     console.log(tableRows);
-        // };
-        // reader.readAsText(csvFile);
-
-        // console.log(reader);
 
         Papa.parse( csvFile, {
             header: true,
@@ -100,17 +56,21 @@ const UploadCSV = () => {
                 });
 
                 // Parsed data response in array format
-                setParsedData(results.data);
+                setLineup(results.data);
                 console.log(results.data);
-                console.log(parsedData);
 
                 // Filtered Column Names
                 setTableRows(rowsArray[0]);
 
                 // Filtered Values
                 setValues(valuesArray);
+
+                console.log("parse complete");
+                uploadLineupArtists(results.data);
             },
+
         });
+
 
     }
 
@@ -134,9 +94,33 @@ const UploadCSV = () => {
 
     };
 
+
+    const uploadLineupArtists = async (lineup) => {
+        try{
+                const response = await axios.post(`/lineupArtist/import-lineupArtists/${lineupId}`, JSON.stringify(lineup), {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+
+                console.log("Response from server: " + response.data);
+
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const displayArtists = () => {
+        return lineup.map(artist => (
+            <h5 key={artist.id} className="artists">{artist.artistName}</h5>
+        ))
+    }
+
+
     return (
-        <div>
-            <label htmlFor="csvInput" style={{ display: "block"}}>
+        <div className= "festivalInfo lineup">
+            {/* {displayArtists()} */}
+            {/* <label htmlFor="csvInput" style={{ display: "block"}}>
                 Enter a CSV File Containing Lineups
             </label>
             <input
@@ -147,7 +131,7 @@ const UploadCSV = () => {
             />
             <div>
                 <button onClick={handleParseCSV}>Parse</button>
-            </div>
+            </div> */}
             <div>
             <table>
                 <thead>
@@ -178,4 +162,4 @@ const UploadCSV = () => {
     );
 };
 
-export default UploadCSV;
+export default Lineup;

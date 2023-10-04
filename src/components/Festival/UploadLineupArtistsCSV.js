@@ -42,49 +42,11 @@ const UploadCSV = () => {
 
     }, [parsedData]);
 
-    const uploadCSV = () => {
-        console.log("In upload csv");
-        console.log(parsedData);
-        console.log(JSON.stringify(parsedData));
-
-        axios.post('/lineup/import-lineups', JSON.stringify(parsedData), {
-            headers: {
-                'Content-Type': 'application/json',
-              },
-        })
-            .then((response) => {
-                console.log(response);
-                console.log('Response from server: ' + response.data);
-                console.log('Festival Lineups uploaded successfully');
-            })
-            .catch((error) => {
-                console.error("Error:", error);
-            });
-    };
 
     const handleParseCSV = () => {
         // if user clicks the parse button without a file we show an error
         if (!csvFile) return setError("Enter a valid file");
 
-        // // Initialize a reader which allows user to read any file or blob
-        // const reader = new FileReader();
-
-        // // Event listener on reader when the file loads,
-        // // we parse it and set the data
-        // reader.onload = async ({ target }) => {
-        //     const csv = Papa.parse(target.result, { header: true });
-        //     const csvParsedData = csv?.data;
-        //     setParsedData(csvParsedData);
-        //     const columns = Object.keys(csvParsedData[0]);
-        //     console.log(csv);
-        //     setTableRows(columns);
-        //     console.log(columns);
-        //     console.log(parsedData);
-        //     console.log(tableRows);
-        // };
-        // reader.readAsText(csvFile);
-
-        // console.log(reader);
 
         Papa.parse( csvFile, {
             header: true,
