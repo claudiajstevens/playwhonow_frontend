@@ -6,9 +6,10 @@ import axios from 'axios';
 
 const Festivals = () => {
     const [festivals, setFestivals] = useState([]);
+    const apiUrl = process.env.REACT_APP_API_URL;
 
     useEffect( () => {
-        axios.get("/festivals")
+        axios.get(`${apiUrl}/festivals`)
             .then( response => {
                 console.log(response.data);
                 setFestivals(response.data);

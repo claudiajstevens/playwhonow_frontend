@@ -25,9 +25,11 @@ const Lineup = ( {lineupId} ) => {
 
     const [dataFetched, setDataFetched] = useState(false);
 
+    const apiUrl = process.env.REACT_APP_API_URL;
+
     useEffect( () => {
         console.log(lineupId);
-        axios.get(`/lineupArtist/${lineupId}`)
+        axios.get(`${apiUrl}/lineupArtist/${lineupId}`)
             .then( response => {
                 console.log(response.data);
                 setLineup(response.data.artists);
@@ -97,7 +99,7 @@ const Lineup = ( {lineupId} ) => {
 
     const uploadLineupArtists = async (lineup) => {
         try{
-                const response = await axios.post(`/lineupArtist/import-lineupArtists/${lineupId}`, JSON.stringify(lineup), {
+                const response = await axios.post(`${api}/lineupArtist/import-lineupArtists/${lineupId}`, JSON.stringify(lineup), {
                     headers: {
                         'Content-Type': 'application/json',
                     },

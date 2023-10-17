@@ -5,6 +5,7 @@ const SignUp = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
+    const apiUrl = process.env.REACT_APP_API_URL;
 
     function sendSignUpRequest() {
         console.log("I'm sending a request...");
@@ -17,7 +18,7 @@ const SignUp = () => {
 
         console.log(JSON.stringify(reqBody));
 
-        fetch("/auth/register", {
+        fetch(`${apiUrl}/auth/register`, {
             headers: {
             "Content-Type": "application/json"
         },

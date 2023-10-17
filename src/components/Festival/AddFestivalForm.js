@@ -5,6 +5,7 @@ const AddFestivalForm = () => {
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
     const [location, setLocation] = useState("");
+    const apiUrl = process.env.REACT_APP_API_URL;
 
     function sendAddFestivalRequest(){
 
@@ -15,7 +16,7 @@ const AddFestivalForm = () => {
             "location": location
         };
 
-        fetch("/festivals/add", {
+        fetch(`${apiUrl}/festivals/add`, {
             headers: {
             "Content-Type": "application/json"
         },

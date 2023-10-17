@@ -8,11 +8,12 @@ import FestivalYearInfo from './FestivalYearInfo';
 const FestivalYears = ( {festivalId} ) => {
 
     const [years, setYears] = useState([]);
+    const apiUrl = process.env.REACT_APP_API_URL;
 
     // fetching all lineup years
     useEffect( () => {
         console.log(festivalId);
-        axios.get(`/lineup/${festivalId}`)
+        axios.get(`${apiUrl}/lineup/${festivalId}`)
             .then( response => {
                 console.log(response.data);
                 setYears(response.data);

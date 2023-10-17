@@ -19,13 +19,15 @@ const UploadCSV = () => {
     const [csvFile, setCsvFile] = useState("");
     const [error, setError] = useState("");
 
+    const apiUrl = process.env.REACT_APP_API_URL;
+
     useEffect ( () => {
         if ( parsedData ) {
             console.log("In upload csv");
             console.log(parsedData);
             console.log(JSON.stringify(parsedData));
     
-            axios.post('/lineup/import-lineups', parsedData, {
+            axios.post(`${apiUrl}/lineup/import-lineups`, parsedData, {
                 headers: {
                   'Content-Type': 'application/json', // Set the content type to JSON
                 },

@@ -3,13 +3,14 @@ import axios from 'axios';
 
 const UploadCSV = () => {
     const [csvFile, setCsvFile] = useState(null);
+    const apiUrl = process.env.REACT_APP_API_URL;
 
     const handleUpload = () => {
         if (csvFile) {
             const formData = new FormData();
             formData.append('csvFile', csvFile);
 
-            axios.post('/festivals/import-festivals', formData, {
+            axios.post(`${apiUrl}/festivals/import-festivals`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

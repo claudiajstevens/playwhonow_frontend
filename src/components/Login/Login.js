@@ -6,6 +6,7 @@ const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [jwt, setJwt] = useLocalState("", "jwt");
+    const apiUrl = process.env.REACT_APP_API_URL;
 
     function sendLoginRequest() {
         console.log("I'm sending a request...");
@@ -17,7 +18,7 @@ const Login = () => {
 
         console.log(JSON.stringify(reqBody));
 
-        fetch("/auth/login", {
+        fetch(`${apiUrl}/auth/login`, {
             headers: {
             "Content-Type": "application/json"
         },

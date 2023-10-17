@@ -10,6 +10,8 @@ const Festival = () => {
 
     const [festival, setFestival] = useState([]);
 
+    const apiUrl = process.env.REACT_APP_API_URL;
+
     // useEffect(() => {
     //     // Fetch the festival details from your Spring Boot backend using the festival ID
     //     fetch(`/api/festivals/${id}`)
@@ -21,7 +23,7 @@ const Festival = () => {
 
 
     useEffect( () => {
-        axios.get(`/festivals/${id}`)
+        axios.get(`${apiUrl}/festivals/${id}`)
             .then( response => {
                 console.log("Axios call went through");
                 console.log(response.data);
