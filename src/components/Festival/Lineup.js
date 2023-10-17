@@ -99,7 +99,7 @@ const Lineup = ( {lineupId} ) => {
 
     const uploadLineupArtists = async (lineup) => {
         try{
-                const response = await axios.post(`${api}/lineupArtist/import-lineupArtists/${lineupId}`, JSON.stringify(lineup), {
+                const response = await axios.post(`${apiUrl}/lineupArtist/import-lineupArtists/${lineupId}`, JSON.stringify(lineup), {
                     headers: {
                         'Content-Type': 'application/json',
                     },
