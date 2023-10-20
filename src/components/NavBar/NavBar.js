@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, NavLink } from 'react-router-dom';
-import playwhonow_logo from "../assets/playwhonow_logo.svg";
+import playwhonow_logo from "../../assets/playwhonow_logo.svg";
 import "./NavBar.css";
 
 function NavBar() {

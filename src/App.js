@@ -9,7 +9,7 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Searcher from './components/Searcher';
-import NavBar from './components/NavBar';
+import NavBar from './components/NavBar/NavBar';
 import Hero from './components/Hero/Hero';
 import Home from './views/Home';
 import Profile from './views/Profile';
