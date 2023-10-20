@@ -72,8 +72,8 @@ function App() {
   // }, []);
 
   return (
-    <div>
-        <Router>
+    <>
+      <Router>
         <NavBar />
 
         <Routes>
@@ -89,7 +89,7 @@ function App() {
           <Route path="/festivals/:id" element={<Festival />}></Route>
         </Routes>
       </Router>
-    </div>
+    </>
 
 
   );

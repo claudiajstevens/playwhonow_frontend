@@ -1,6 +1,12 @@
+* {
+  margin:0;
+  padding:0;
+}
+
 .App {
   text-align: center;
 }
+
 
 .App-logo {
   height: 40vmin;
@@ -72,6 +78,11 @@ table {
 
 .timeline {
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  flex:  1 0;
+  /* justify-content: space-around;
+  align-content: space-between; */
 }
 
 .timeline-month {

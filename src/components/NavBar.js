@@ -1,28 +1,26 @@
 import React from "react";
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
+import playwhonow_logo from "../assets/playwhonow_logo.svg";
 import "./NavBar.css";
 
 function NavBar() {
 
     return(
-        <header className="NavBar">
-            <nav>
-                <ul>
-                    <li>
-                        <Link to="/">Home</Link>
-                    </li>
-                    <li>
-                        <Link to="/profile">Profile</Link>
-                    </li>
-                    <li>
-                        <Link to="/festivals">Festivals</Link>
-                    </li>
-                    <li>
-                        <Link to="/login">Login/Sign Up</Link>
-                    </li>
-                </ul>
-            </nav>
-        </header>
+        <nav className="navBar">
+            {/* <div className="container"> */}
+                {/* <div className="logo">
+                    <h1>PLAY WHO NOW</h1>
+                </div> */}
+                {/* <div className="nav-elements"> */}
+                    <Link to="/" className="title"><img src={playwhonow_logo} alt="logo" />PLAY WHO NOW</Link>
+                    <ul>
+                        <li><NavLink to="/festivals">Festivals</NavLink></li>
+                        <li><NavLink to="/profile">Profile</NavLink></li>
+                        <li><NavLink to="/login">Login</NavLink></li>
+                    </ul>
+                {/* </div>                    */}
+            {/* </div> */}
+        </nav>
     );
 }
 
