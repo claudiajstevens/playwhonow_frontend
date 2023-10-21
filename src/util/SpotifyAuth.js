@@ -83,7 +83,7 @@ const SpotifyAuth = () => {
 
         generateCodeChallenge(codeVerifier).then((codeChallenge) => {
             const state = generateRandomString(16);
-            const scope = 'user-read-private user-read-email';
+            const scope = 'user-read-private user-read-email playlist-read-private user-library-read';
 
             localStorage.setItem('code_verifier', codeVerifier);
 
@@ -103,8 +103,8 @@ const SpotifyAuth = () => {
     };
 
     const logout = () => {
-        setToken("")
-        window.localStorage.removeItem("access_token")
+        setToken("");
+        window.localStorage.removeItem("access_token");
       }
 
 
