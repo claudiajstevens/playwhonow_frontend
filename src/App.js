@@ -7,6 +7,8 @@ import {
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './assets/fonts/fonts.css';
+import colors from './ColorPalette';
 
 import Searcher from './components/Searcher';
 import NavBar from './components/NavBar/NavBar';

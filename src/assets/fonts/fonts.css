@@ -1,0 +1,13 @@
+@font-face {
+    font-family: 'Stardom';
+    src: url('./stardom_fonts/Stardom-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Cehua';
+    src: url('./CehuaFreeFree-K7eMl.otf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}

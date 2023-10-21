@@ -5,6 +5,7 @@ import Hero from "../components/Hero/Hero";
 import SpotifyLogin from "../components/SpotifyLogin";
 import Searcher from "../components/Searcher";
 import SpotifyGetPlaylists from "../components/SpotifyGetPlaylists/SpotifyGetPlaylists";
+import SpotifyAuth from "../util/SpotifyAuth";
 
 
 const Home = () => {
@@ -23,24 +24,33 @@ const Home = () => {
       //const [songs, setSongs] = useState([])
   
     useEffect( () => {
-      const hash = window.location.hash
-      let token = window.localStorage.getItem("token")
-  
-      if (!token && hash) {
-        token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1]
-  
-        window.location.hash = ""
-        window.localStorage.setItem("token", token)
+      const storedAuthToken = localStorage.getItem('access_token');
+
+      if (storedAuthToken) {
+        console.log("setting access token: " + storedAuthToken);
+        setToken(storedAuthToken);
       }
+    }, []);
+
+    // useEffect( () => {
+    //   const hash = window.location.hash
+    //   let token = window.localStorage.getItem("token")
   
-      setToken(token)
+    //   if (!token && hash) {
+    //     token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1]
   
-    }, [])
+    //     window.location.hash = ""
+    //     window.localStorage.setItem("token", token)
+    //   }
   
-    const logout = () => {
-      setToken("")
-      window.localStorage.removeItem("token")
-    }
+    //   setToken(token)
+  
+    // }, [])
+  
+    // const logout = () => {
+    //   setToken("")
+    //   window.localStorage.removeItem("token")
+    // }
   
   
     const searchArtists = async (e) => {
@@ -94,10 +104,12 @@ const Home = () => {
             {/* <SpotifyLogin /> */}
             
             <h1>Festival Playlist Generator</h1>
-            {!token ?
+            <SpotifyAuth />
+
+            {/* {!token ?
                 <a className='btn btn-success' href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login
                 to Spotify</a>
-                : <button onClick={logout}>Logout</button>}
+                : <button onClick={logout}>Logout</button>} */}
 
             <SpotifyGetPlaylists /> 
 
