@@ -9,7 +9,7 @@ import SpotifyAuth from "../util/SpotifyAuth";
 
 
 const Home = () => {
-    const CLIENT_ID = "58f1e32db8984bf8a52539fb48a602e1"
+    const CLIENT_ID = process.env.REACT_APP_SPOTIFY_CLIENT_ID;  //"58f1e32db8984bf8a52539fb48a602e1"
     const REDIRECT_URI = "http://localhost:3000"
     const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
     const RESPONSE_TYPE = "token"

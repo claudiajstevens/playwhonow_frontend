@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 
 
 const SpotifyAuth = () => {
-    const clientId = process.env.REACT_APP_SPOTIFY_CLIENT_ID;   //'58f1e32db8984bf8a52539fb48a602e1'
-    const redirectUri = process.env.REACT_APP_URL; //'http://localhost:3000';
+    const clientId = process.env.REACT_APP_SPOTIFY_CLIENT_ID;  //'58f1e32db8984bf8a52539fb48a602e1'
+    const redirectUri = process.env.REACT_APP_URL;   //'http://localhost:3000'; 
     const scopes = ["user-read-currently-playing", "user-read-playback-state"];
     const [token, setToken] = useState('');
 
@@ -122,9 +122,3 @@ const SpotifyAuth = () => {
 };
 
 export default SpotifyAuth;
-
-
-            {/* {!token ?
-                <a className='btn btn-success' href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login
-                to Spotify</a>
-                : <button onClick={logout}>Logout</button>} */}
