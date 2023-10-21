@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 
 const SpotifyAuth = () => {
     const clientId = process.env.REACT_APP_SPOTIFY_CLIENT_ID;   //'58f1e32db8984bf8a52539fb48a602e1'
-    const redirectUri = process.env.REACT_APP_API_URL; //'http://localhost:3000';
+    const redirectUri = process.env.REACT_APP_URL; //'http://localhost:3000';
     const scopes = ["user-read-currently-playing", "user-read-playback-state"];
     const [token, setToken] = useState('');
 
