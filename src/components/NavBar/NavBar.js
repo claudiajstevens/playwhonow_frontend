@@ -6,21 +6,23 @@ import "./NavBar.css";
 function NavBar() {
 
     return(
-        <nav className="navBar">
-            {/* <div className="container"> */}
-                {/* <div className="logo">
-                    <h1>PLAY WHO NOW</h1>
-                </div> */}
-                {/* <div className="nav-elements"> */}
-                    <Link to="/" className="title"><img src={playwhonow_logo} alt="logo" />PLAY WHO NOW</Link>
-                    <ul>
-                        <li><NavLink to="/festivals">Festivals</NavLink></li>
-                        <li><NavLink to="/profile">Profile</NavLink></li>
-                        <li><NavLink to="/login">Login</NavLink></li>
-                    </ul>
-                {/* </div>                    */}
-            {/* </div> */}
-        </nav>
+        <div className="banner">
+            <nav className="navBar">
+                {/* <div className="container"> */}
+                    {/* <div className="logo">
+                        <h1>PLAY WHO NOW</h1>
+                    </div> */}
+                    {/* <div className="nav-elements"> */}
+                        <Link to="/" className="title"><img src={playwhonow_logo} alt="logo" />PLAY WHO NOW</Link>
+                        <ul>
+                            <li><NavLink to="/festivals">Festivals</NavLink></li>
+                            <li><NavLink to="/profile">Profile</NavLink></li>
+                            <li><NavLink to="/login">Login</NavLink></li>
+                        </ul>
+                    {/* </div>                    */}
+                {/* </div> */}
+            </nav>
+        </div>
     );
 }
 

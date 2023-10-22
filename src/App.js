@@ -21,6 +21,7 @@ import PrivateRoute from './PrivateRoute/PrivateRoute';
 import SignUp from './components/SignUp/SignUp';
 import Festivals from './views/Festivals';
 import Festival from './components/Festival/Festival';
+import Footer from './components/Footer';
 
 
 function App() {
@@ -76,20 +77,25 @@ function App() {
   return (
     <>
       <Router>
-        <NavBar />
+        <div className='page-wrapper'>
+          <NavBar />
 
-        <Routes>
-          <Route path="/profile" element={
-            <PrivateRoute>
-              <Profile />
-            </PrivateRoute>
-          }></Route>
-          <Route path="/festivals" element={<Festivals />}></Route>
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="signup" element={<SignUp />} />
-          <Route path="/" element={<Home />}></Route>
-          <Route path="/festivals/:id" element={<Festival />}></Route>
-        </Routes>
+          <Routes>
+            <Route path="/profile" element={
+              <PrivateRoute>
+                <Profile />
+              </PrivateRoute>
+            }></Route>
+            <Route path="/festivals" element={<Festivals />}></Route>
+            <Route path="/login" element={<Login />}></Route>
+            <Route path="signup" element={<SignUp />} />
+            <Route path="/" element={<Home />}></Route>
+            <Route path="/festivals/:id" element={<Festival />}></Route>
+          </Routes>
+
+          <Footer />
+        </div>
+
       </Router>
     </>
 

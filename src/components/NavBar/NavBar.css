@@ -31,6 +31,19 @@
     background-color: var(--indigo);
 }
 
+/* .banner {
+    height: 8rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background-image: url(../../assets/Banner.png);
+    background-size: cover;
+    background-position: center;
+    position: sticky;
+    top: 0;
+} */
+
 .navBar {
     /* height: 60px; */
     font-family: 'Stardom';

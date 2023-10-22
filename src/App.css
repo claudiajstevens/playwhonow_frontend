@@ -55,9 +55,17 @@
   }
 }
 
+.page-wrapper {
+  /* position: relative; */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 table {
-  min-width: 748px;
-  max-width: 763px;
+  /* min-width: 748px; */
+  max-width: 100%;
+  /* 763px; */
   table-layout: fixed;
 }
 
@@ -141,3 +149,17 @@ table {
 }
 
 
+
+/* FOOTER */
+.footer {
+  /* height: 3rem; */
+  width: 100%;
+  /* position: absolute;
+  bottom: 0; */
+  padding: 1.25rem;
+  background-color: var(--darkBlue);
+  font-family: 'Stardom';
+  color: white;
+  text-align: center;
+  justify-content: flex-end;
+}

@@ -6,7 +6,7 @@ import SpotifyLogin from "../components/SpotifyLogin";
 import Searcher from "../components/Searcher";
 import SpotifyGetPlaylists from "../components/SpotifyGetPlaylists/SpotifyGetPlaylists";
 import SpotifyAuth from "../util/SpotifyAuth";
-
+import background from "../assets/background.png";
 
 const Home = () => {
     const CLIENT_ID = process.env.REACT_APP_SPOTIFY_CLIENT_ID;  //"58f1e32db8984bf8a52539fb48a602e1"
