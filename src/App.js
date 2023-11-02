@@ -79,19 +79,20 @@ function App() {
       <Router>
         <div className='page-wrapper'>
           <NavBar />
-
-          <Routes>
-            <Route path="/profile" element={
-              <PrivateRoute>
-                <Profile />
-              </PrivateRoute>
-            }></Route>
-            <Route path="/festivals" element={<Festivals />}></Route>
-            <Route path="/login" element={<Login />}></Route>
-            <Route path="signup" element={<SignUp />} />
-            <Route path="/" element={<Home />}></Route>
-            <Route path="/festivals/:id" element={<Festival />}></Route>
-          </Routes>
+          <div className='app-pages'>
+            <Routes>
+              <Route path="/profile" element={
+                <PrivateRoute>
+                  <Profile />
+                </PrivateRoute>
+              }></Route>
+              <Route path="/festivals" element={<Festivals />}></Route>
+              <Route path="/login" element={<Login />}></Route>
+              <Route path="signup" element={<SignUp />} />
+              <Route path="/" element={<Home />}></Route>
+              <Route path="/festivals/:id" element={<Festival />}></Route>
+            </Routes>
+          </div>
 
           <Footer />
         </div>
