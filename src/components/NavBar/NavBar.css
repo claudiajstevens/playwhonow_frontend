@@ -60,6 +60,40 @@
     top: 0;
 }
 
+.mainNav {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* .menu {
+    display: none;
+} */
+
+/* .menu .expanded{
+    display: block;
+} */
+
+.hamburger {
+    margin: 10px;
+    padding: 10px;
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.hamburger:hover, .hamburger.expanded{
+    background-color: var(--indigo);
+}
+
+.hamburger div {
+    color: var(--offWhite);
+    width: 23px;
+    height: 3px;
+    background-color: var(--purple);
+    margin: 3px 0;
+}
+
+
 .navBar .title{
     font-family: 'Stardom';
     font-size: 1.75rem;
@@ -72,13 +106,19 @@
     margin: 1rem;
 }
 
-.navBar ul {
+.nav-menu ul {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+}
+
+/* .navBar ul {
     display: flex;
 }
 
 .navBar ul li {
     list-style: none;
-}
+} */
 
 .navBar ul li a {
     display: block;
@@ -105,6 +145,49 @@ img {
     max-height: 100%;
     display: inline;
     padding-bottom: 5px;
+}
+
+@media screen and (max-width: 600px) {
+
+    .navBar {
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    .navBar.expanded {
+        height: fit-content;
+    }
+
+    .nav-menu{
+        display: none;
+    }
+
+    /* .desktop {
+        display: none;
+    } */
+
+    .nav-menu.expanded {
+        display: block;
+        /* flex-direction: column; */
+        position: relative;
+        left: 0;
+    }
+
+    .nav-menu.expanded ul {
+        flex-direction: column;
+        background-color: var(--darkBlue);
+        width: 100%;
+    }
+
+    .hamburger {
+        display: flex;
+        /* justify-content: flex-end;
+        align-items: center; */
+        position: absolute;
+        top: 1.25rem;
+        right: 0.5rem;
+    }
 }
 
 /* .logo {
