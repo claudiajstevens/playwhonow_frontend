@@ -7,7 +7,7 @@ const allowedExtensions = ["csv"];
 
 
 const Lineup = ( {lineupId} ) => {
-    const [lineup, setLineup] = useState([null]);
+    const [lineup, setLineup] = useState([]);
 
     // State to hold parsed data
     const [parsedData, setParsedData] = useState([null]);
@@ -29,10 +29,11 @@ const Lineup = ( {lineupId} ) => {
 
     useEffect( () => {
         console.log(lineupId);
+        console.log("getting lineup");
         axios.get(`${apiUrl}/lineupArtist/${lineupId}`)
             .then( response => {
                 console.log(response.data);
-                setLineup(response.data.artists);
+                setLineup(response.data);
             })
             .catch ( error => {
                 console.error("Error fetching data:", error);
@@ -47,28 +48,34 @@ const Lineup = ( {lineupId} ) => {
         Papa.parse( csvFile, {
             header: true,
             skipEmptyLines: true,
+            delimiter: ",",
             complete: function( results ) {
-                const rowsArray = [];
-                const valuesArray = [];
-
-                // iterating data to get column name and their values
-                results.data.map( (d) => {
-                    rowsArray.push(Object.keys(d));
-                    valuesArray.push(Object.values(d));
-                });
-
-                // Parsed data response in array format
-                setLineup(results.data);
                 console.log(results.data);
 
-                // Filtered Column Names
-                setTableRows(rowsArray[0]);
+                if( results.data.length > 0 ){
+                    const rowsArray = [];
+                    const valuesArray = [];
+    
+                    // iterating data to get column name and their values
+                    results.data.map( (d) => {
+                        rowsArray.push(Object.keys(d));
+                        valuesArray.push(Object.values(d));
+                    });
+    
+                    // Parsed data response in array format
+                    setLineup(results.data);
+                    console.log(results.data);
+    
+                    // Filtered Column Names
+                    setTableRows(rowsArray[0]);
+    
+                    // Filtered Values
+                    setValues(valuesArray);
+    
+                    console.log("parse complete");
+                    uploadLineupArtists(results.data);
+                }
 
-                // Filtered Values
-                setValues(valuesArray);
-
-                console.log("parse complete");
-                uploadLineupArtists(results.data);
             },
 
         });
@@ -113,16 +120,27 @@ const Lineup = ( {lineupId} ) => {
     };
 
     const displayArtists = () => {
-        return lineup.map(artist => (
-            <h5 key={artist.id} className="artists">{artist.artistName}</h5>
-        ))
+        // if( lineup ){
+        //     return lineup.map(artist => (
+        //         <h5 key={artist.id} className="artists">{artist.artistName}</h5>
+        //     ));
+        // }
+        if( lineup.length > 0 ) {
+            return lineup.map(artist => (
+                <h5 key={artist.id} className="artists">{artist.artistName}</h5>
+            ))
+        } else {
+            return <p>Loading lineup ... </p>
+        }
+
     }
 
 
     return (
         <div className= "festivalInfo lineup">
-            {/* {displayArtists()} */}
-            {/* <label htmlFor="csvInput" style={{ display: "block"}}>
+            {displayArtists()}
+            {/* {lineup} */}
+            <label htmlFor="csvInput" style={{ display: "block"}}>
                 Enter a CSV File Containing Lineups
             </label>
             <input
@@ -133,7 +151,7 @@ const Lineup = ( {lineupId} ) => {
             />
             <div>
                 <button onClick={handleParseCSV}>Parse</button>
-            </div> */}
+            </div>
             <div>
             <table>
                 <thead>

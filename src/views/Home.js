@@ -15,8 +15,11 @@ const Home = () => {
     const RESPONSE_TYPE = "token"
   
     const [token, setToken] = useState("")
+    const [upcomingFestivals, setUpcomingFestivals] = useState([])
 
     const SCOPES = ["user-read-currently-playing", "user-read-playback-state"];
+
+    const apiUrl = process.env.REACT_APP_API_URL;
 
       // for fetching data
       const [searchKey, setSearchKey] = useState("")
@@ -79,6 +82,17 @@ const Home = () => {
       ))
     }
   
+    
+    useEffect( () => {
+      axios.get(`${apiUrl}/festivals`)
+          .then( response => {
+              console.log(response.data);
+              setUpcomingFestivals(response.data);
+          })
+          .catch( error => {
+              console.error("Error fetching data:", error);
+          });
+    }, []);
   
     // const getTopSongs = async (e) => {
     //   e.preventDefault()
@@ -125,6 +139,10 @@ const Home = () => {
             {renderArtists()}
 
             <Searcher token={token} />
+
+            <div className="upcomingFestivals">
+              Upcoming Festivals
+            </div>
 
         </div>
     )
