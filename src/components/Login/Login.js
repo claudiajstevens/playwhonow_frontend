@@ -1,7 +1,7 @@
-import React, { useState, useRef, useEffect, useContext } from 'react';
-import AuthContext from '../../context/AuthProvider';
+import React, { useState, useRef, useEffect } from 'react';
+import useAuth from '../../hooks/useAuth';
 import { useLocalState } from '../../util/useLocalStorage';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from '../../api/axios';
 
 // import AuthService from '../../services/authService';
@@ -9,13 +9,17 @@ import axios from '../../api/axios';
 const LOGIN_URL = '/auth/login'
 
 const Login = () => {
-    const { setAuth } = useContext(AuthContext);
+    const { setAuth } = useAuth();
+
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
+
     const userRef = useRef();
     const errRef = useRef();
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [success, setSuccess] = useState(false);
     const [errMsg, setErrMsg] = useState("");
     const [jwt, setJwt] = useLocalState("", "jwt");
 
@@ -54,12 +58,20 @@ const Login = () => {
             
             console.log(JSON.stringify(response?.data));
             // console.log(JSON.stringify(response));
-            const accessToken = response?.data?.accessToken;
-            const roles = response?.data?.roles;
+            const accessToken = response?.data?.jwt;
+            const roles = response?.data?.user?.authorities;
+            // let roles = JSON.stringify(response?.data?.user?.authorities);
+            // let roles = response?.data?.user?.authorities;
+            // roles = roles.map(role => role.roleId);
+            console.log("Roles: " + JSON.stringify(roles));
             setAuth({username, password, roles, accessToken});
+            console.log("Access token: " + accessToken);
             setUsername('');
             setPassword('');
-            setSuccess(true);
+
+            // this will send user back to page they were trying to access before they had to log on
+            // or sends back to home page otherwise
+            navigate(from, { replace: true });
 
         } catch (err) {
             if (!err?.response) {
@@ -78,16 +90,6 @@ const Login = () => {
     }
 
     return (
-        <>
-            {success ? (
-                <section className='register'>
-                    <h1>You are logged in!</h1>
-                    <br />
-                    <p>
-                        <Link to='/' className='login'>Go to Home</Link>
-                    </p>
-                </section>
-            ) : (
         <section className='register'>
             <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
             <h1>Log In!</h1>
@@ -124,9 +126,6 @@ const Login = () => {
                 </span>
             </p>
         </section>
-            )}
-        </>
-
     );
 };
 
