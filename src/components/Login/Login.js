@@ -1,72 +1,130 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
+import AuthContext from '../../context/AuthProvider';
 import { useLocalState } from '../../util/useLocalStorage';
 import { Link } from 'react-router-dom';
+import axios from '../../api/axios';
+
+// import AuthService from '../../services/authService';
+
+const LOGIN_URL = '/auth/login'
 
 const Login = () => {
+    const { setAuth } = useContext(AuthContext);
+    const userRef = useRef();
+    const errRef = useRef();
+
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [success, setSuccess] = useState(false);
+    const [errMsg, setErrMsg] = useState("");
     const [jwt, setJwt] = useLocalState("", "jwt");
-    const apiUrl = process.env.REACT_APP_API_URL;
 
-    function sendLoginRequest() {
-        console.log("I'm sending a request...");
+    // sets the focus to the username input field
+    useEffect( () => {
+        userRef.current.focus();
+    }, []);
 
-        const  reqBody = {
-            "username": username,
-            "password": password,
-        };
+    // clears out error message when user changes input
+    useEffect( () => {
+        setErrMsg('');
+    }, [username, password]);
 
-        console.log(JSON.stringify(reqBody));
+    const onChangeUsername = (e) => {
+        const username = e.target.value;
+        setUsername(username);
+    };
 
-        fetch(`${apiUrl}/auth/login`, {
-            headers: {
-            "Content-Type": "application/json"
-        },
-            method: "post",
-            body: JSON.stringify(reqBody)
-        })
-            .then((response) => {
-                console.log(response.status);
-                if(response.status === 200){
+    const onChangePassword = (e) => {
+        const password = e.target.value;
+        setPassword(password);
+    }
 
-                    return Promise.all([response.json(), response.headers]);
-                }else{
-                    return Promise.reject("Invalid login attempt");
+
+    const handleLogin = async (e) => {
+        e.preventDefault();
+
+        try {
+            const response = await axios.post(LOGIN_URL, 
+                JSON.stringify({username, password}),
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true
                 }
-                
-            })
-            .then(([body, headers]) => {
-                setJwt(body.jwt);  
-                window.location.href = "profile";
-            })
-            .catch((message) => {
-                alert(message);
-            });
+            );
+            
+            console.log(JSON.stringify(response?.data));
+            // console.log(JSON.stringify(response));
+            const accessToken = response?.data?.accessToken;
+            const roles = response?.data?.roles;
+            setAuth({username, password, roles, accessToken});
+            setUsername('');
+            setPassword('');
+            setSuccess(true);
+
+        } catch (err) {
+            if (!err?.response) {
+                setErrMsg('No Server Response');
+            } else if (err.response?.status === 400){
+                setErrMsg('Missing Username or Password');
+            } else if (err.response?.status === 401){
+                // setErrMsg('Unauthorized');
+                setErrMsg('Invalid Username or Password');
+            } else {
+                setErrMsg('Login Failed');
+            }
+
+            errRef.current.focus();
+        }
     }
 
     return (
         <>
-            <div>
-                <label htmlFor='username'>Username: </label>
+            {success ? (
+                <section className='register'>
+                    <h1>You are logged in!</h1>
+                    <br />
+                    <p>
+                        <Link to='/' className='login'>Go to Home</Link>
+                    </p>
+                </section>
+            ) : (
+        <section className='register'>
+            <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
+            <h1>Log In!</h1>
+            
+            <form onSubmit={handleLogin} className='registerForm'>
+                {/* username */}
+                <label htmlFor="username">Username: </label>
                 <input 
-                    id="username" 
-                    value={username} 
-                    onChange={ (e) => setUsername(e.target.value)} />
-            </div>
-            <div>
-                <label htmlFor="password">Password: </label>
-                <input 
-                    type="password" 
-                    id="password" 
-                    value={password} 
-                    onChange={ (e) => setPassword(e.target.value)}/>
-            </div>
-            <div>
-                <button id="submit" type="button" onClick={() => sendLoginRequest()}>Login</button>
-                <button id="signup" type="button">
-                    <Link to="/signup" className='signup'>Sign Up</Link>
-                </button>
-            </div>        
+                    type="text" 
+                    id="username"
+                    ref={userRef}
+                    onChange={(e) => setUsername(e.target.value)}
+                    value={username}
+                    required
+                />
+
+                {/* password */}
+                <label htmlFor='password'>Password: </label>
+                <input
+                    type="password"
+                    id="password"
+                    onChange={(e) => setPassword(e.target.value)}
+                    value={password}
+                    required
+                />
+
+                <button className='register-btn'>Sign In</button>
+            </form>
+
+            <p>
+                Don't have an account?<br />
+                <span className='line'>
+                    <Link to="/signup" className='login'>Sign Up</Link>
+                </span>
+            </p>
+        </section>
+            )}
         </>
 
     );

@@ -2,22 +2,22 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios';
 
 import Hero from "../components/Hero/Hero";
-import SpotifyLogin from "../components/SpotifyLogin";
-import Searcher from "../components/Searcher";
-import SpotifyGetPlaylists from "../components/SpotifyGetPlaylists/SpotifyGetPlaylists";
-import SpotifyAuth from "../util/SpotifyAuth";
-import background from "../assets/background.png";
+// import SpotifyLogin from "../components/SpotifyLogin";
+// import Searcher from "../components/Searcher";
+// import SpotifyGetPlaylists from "../components/SpotifyGetPlaylists/SpotifyGetPlaylists";
+// import SpotifyAuth from "../util/SpotifyAuth";
+import UpcomingFestivals from "../components/Festival/UpcomingFestivals/UpcomingFestivals";
+// import background from "../assets/background.png";
 
 const Home = () => {
-    const CLIENT_ID = process.env.REACT_APP_SPOTIFY_CLIENT_ID;  //"58f1e32db8984bf8a52539fb48a602e1"
-    const REDIRECT_URI = "http://localhost:3000"
-    const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
-    const RESPONSE_TYPE = "token"
+    // const CLIENT_ID = process.env.REACT_APP_SPOTIFY_CLIENT_ID;  //"58f1e32db8984bf8a52539fb48a602e1"
+    // const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
+    // const RESPONSE_TYPE = "token"
   
     const [token, setToken] = useState("")
     const [upcomingFestivals, setUpcomingFestivals] = useState([])
 
-    const SCOPES = ["user-read-currently-playing", "user-read-playback-state"];
+    // const SCOPES = ["user-read-currently-playing", "user-read-playback-state"];
 
     const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -117,14 +117,14 @@ const Home = () => {
             <Hero />
             {/* <SpotifyLogin /> */}
             
-            <h1>Festival Playlist Generator</h1>
-            <SpotifyAuth />
+            {/* <h1>Festival Playlist Generator</h1>
+            <SpotifyAuth /> */}
 
             {/* {!token ?
                 <a className='btn btn-success' href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login
                 to Spotify</a>
                 : <button onClick={logout}>Logout</button>} */}
-
+{/* 
             <SpotifyGetPlaylists /> 
 
             {token ?
@@ -134,14 +134,15 @@ const Home = () => {
                   </form>
 
                 : <h2>Please login</h2>
-            }
+            } */}
 
-            {renderArtists()}
+            {/* {renderArtists()}
 
-            <Searcher token={token} />
+            <Searcher token={token} /> */}
 
-            <div className="upcomingFestivals">
-              Upcoming Festivals
+            <div className="upcomingFests">
+              <h1>Upcoming Festivals</h1>
+              <UpcomingFestivals />
             </div>
 
         </div>

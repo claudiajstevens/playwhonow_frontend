@@ -1,0 +1,70 @@
+* {
+    font-family: 'Stardom-bold';
+}
+
+.festival-bar {
+    display: flex;
+    justify-content: space-around;
+    /* flex-wrap: wrap; */
+    padding: 2em 0;
+    /* align-content: center; */
+}
+
+.upcomingFestivals {
+    height: 200px;
+    width: 200px;
+    /* border: 3px solid; */
+    border-radius: 15px;
+    padding: 15px 10px;
+    background: rgb(85,87,146);
+    background: linear-gradient(115deg, rgba(85,87,146,1) 0%, rgba(221,195,220,1) 100%);
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.upcomingFestivals:hover {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .6);
+}
+
+.upcomingFestivals .name {
+    font-size: 20px;
+}
+
+.upcomingFests {
+    padding: 2rem;
+}
+
+.lineup-poster {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    /* flex-wrap: nowrap; */
+    padding: 2em;
+}
+
+.lineup-poster .lineup-pic-card:first-child {
+    margin-left: auto;
+}
+
+.lineup-poster .lineup-pic-card:last-child {
+    margin-right: auto;
+}
+
+.lineup-img {
+    height: 300px;
+    margin: auto;
+}
+
+.lineup-pic-card {
+    height: 320px;
+    width: 320px;
+    margin: 5px;
+    background-color: var(--indigo);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}

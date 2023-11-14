@@ -31,7 +31,6 @@ const Festivals = () => {
         <div>
             <h1>Festivals</h1>
             <UploadCSV />
-            <AddFestivalForm />
             {displayFestivals()}
         </div>
     );

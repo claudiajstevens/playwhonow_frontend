@@ -78,11 +78,6 @@ table {
 
 /*    ~~~~~ HERO CSS ~~~~~    */
 
-.hero{
-  background: rgb(255,9,30);
-  background: linear-gradient(90deg, rgba(255,9,30,1) 0%, rgba(241,0,255,1) 100%);
-}
-
 .signup{
   color: black;
   text-decoration: none;
@@ -93,6 +88,15 @@ table {
     cssgradient.io
 
 */
+
+
+/* ~~~~~ HOME PAGE ~~~~~ */
+
+.home-page {
+  background-color: var(--blueberryMilk);
+}
+
+
 
 
 
