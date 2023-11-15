@@ -24,7 +24,7 @@ import Festival from './components/Festival/Festival';
 import Footer from './components/Footer';
 import Layout from './components/Layout';
 import RequireAuth from './components/RequireAuth';
-import Admin from './components/Admin';
+import Admin from './components/Admin/Admin';
 import Unauthorized from './components/Unauthorized';
 import Missing from './components/Missing';
 
@@ -35,11 +35,12 @@ const ROLES = {
 
 function App() {
   // may want to save jwt in cookie instead of local storage
-  const [jwt, setJwt] = useLocalState("", "jwt");
+  
+  // const [jwt, setJwt] = useLocalState("", "jwt");
 
-  useEffect( () => {
-    console.log(`JWT is: ${jwt}`);
-  }, [jwt]);
+  // useEffect( () => {
+  //   console.log(`JWT is: ${jwt}`);
+  // }, [jwt]);
 
 
   //adding connection to spring boot application
@@ -52,43 +53,44 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<Layout />} />
+      <Route path="/" element={<Layout />}>
 
-      {/* public routes */}
-      <Route path="/" element={<Home />}></Route>
-      <Route path="/login" element={<Login />}></Route>
-      <Route path="signup" element={<SignUp />} />
-      {/* <Route path="/festivals" element={<Festivals />}></Route> */}
-      <Route path="/festivals/:id" element={<Festival />}></Route>
-      <Route path="/unauthorized" element={<Unauthorized />} />
-
-
-
-      {/* private protexted routes */}
-
-        {/* user protected routes */}
-        <Route element={<RequireAuth allowedRoles={[ROLES.User]}/>}>
-          <Route path="/profile" element={<Profile /> } />
-          <Route path="/festivals" element={<Festivals />}></Route>
-        </Route>
-
-        {/* admin protected routes */}
-        <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
-          <Route path="/admin" element={<Admin />} />
-        </Route>
-
-
-        <Route path="/profile" element={
-          <PrivateRoute>
-              <Profile />
-          </PrivateRoute>
-        }></Route>
+        {/* public routes */}
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="signup" element={<SignUp />} />
+        {/* <Route path="/festivals" element={<Festivals />}></Route> */}
+        <Route path="/festivals/:id" element={<Festival />} />
+        <Route path="/unauthorized" element={<Unauthorized />} />
 
 
 
-      {/* catch all */}
-      <Route path='*' element={<Missing />} />
+        {/* private protexted routes */}
 
+          {/* user protected routes */}
+          <Route element={<RequireAuth allowedRoles={[ROLES.User, ROLES.Admin]}/>}>
+            <Route path="/profile" element={<Profile /> } />
+            <Route path="/festivals" element={<Festivals />}></Route>
+          </Route>
+
+          {/* admin protected routes */}
+          <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
+            <Route path="/admin" element={<Admin />} />
+          </Route>
+
+
+          <Route path="/profile" element={
+            <PrivateRoute>
+                <Profile />
+            </PrivateRoute>
+          }></Route>
+
+
+
+        {/* catch all */}
+        <Route path='*' element={<Missing />} />
+      
+      </Route>
     </Routes>
 
 

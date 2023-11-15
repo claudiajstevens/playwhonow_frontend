@@ -30,7 +30,7 @@ const Home = () => {
       const storedAuthToken = localStorage.getItem('access_token');
 
       if (storedAuthToken) {
-        console.log("setting access token: " + storedAuthToken);
+        // console.log("setting access token: " + storedAuthToken);
         setToken(storedAuthToken);
       }
     }, []);

@@ -1,0 +1,7 @@
+.admin-page {
+    margin: 4em auto;
+    width: 70%;
+    max-width: 650px;
+    min-height: 600px;
+    background-color: var(--blueberryMilk);
+}

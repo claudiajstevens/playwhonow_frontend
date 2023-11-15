@@ -2,14 +2,14 @@ import { Outlet } from 'react-router-dom';
 import NavBar from './NavBar/NavBar';
 import Footer from './Footer'
 
-const Layout = () => {
+const Layout = ({ children }) => {
     return (
         <main className='App'>
-            <div className='page-wrapper'>
+            {/* <div className='page-wrapper'> */}
                 <NavBar />
-                    <div className='app-pages'></div>
+                <div className='app-pages'>{children}</div>
                 <Footer />
-            </div>
+            {/* </div> */}
             <Outlet />
         </main>
     );

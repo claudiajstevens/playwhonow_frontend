@@ -21,7 +21,6 @@ const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [errMsg, setErrMsg] = useState("");
-    const [jwt, setJwt] = useLocalState("", "jwt");
 
     // sets the focus to the username input field
     useEffect( () => {
@@ -58,7 +57,7 @@ const Login = () => {
             
             console.log(JSON.stringify(response?.data));
             // console.log(JSON.stringify(response));
-            const accessToken = response?.data?.jwt;
+            const accessToken = response?.data?.accessToken;
             const roles = response?.data?.user?.authorities;
             // let roles = JSON.stringify(response?.data?.user?.authorities);
             // let roles = response?.data?.user?.authorities;
@@ -66,6 +65,8 @@ const Login = () => {
             console.log("Roles: " + JSON.stringify(roles));
             setAuth({username, password, roles, accessToken});
             console.log("Access token: " + accessToken);
+            localStorage.setItem("access_token", accessToken);
+            localStorage.setItem("refresh_token", response?.data?.refreshToken);
             setUsername('');
             setPassword('');
 

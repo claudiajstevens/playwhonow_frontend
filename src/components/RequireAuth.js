@@ -4,6 +4,12 @@ import useAuth from "../hooks/useAuth";
 const RequireAuth = ( {allowedRoles} ) => {
     const { auth } = useAuth();
     const location = useLocation();
+    
+    console.log("Auth State: " + JSON.stringify(auth));
+
+    if( !auth || !auth.username || !auth.roles ){
+        console.error("Authentication data is missing.");
+    }
 
     return (
         // this will check the roles that are stored in our state
