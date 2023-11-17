@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from '../../api/axios';
-import { faCheck, faTimes, faInfoCircle } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faCheck, faTimes, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/free-solid-svg-icons'  //'@fortawesome/free-solid-svg-icons';
 import "./SignUp.css";
 
 
@@ -152,11 +152,11 @@ const SignUp = () => {
                     <label htmlFor="username">
                         Username: 
                         <span className={validName ? "valid" : "hide"}>
-                            <FontAwesomeIcon icon={faCheck} />
+                            {/* <FontAwesomeIcon icon={faCheck} /> */}
                         </span>
                         <span className={validName ? "valid" : "hide"}></span>
                         <span className={validName || !user ? "hide" : "invalid"}>
-                            <FontAwesomeIcon icon={faTimes} />
+                            {/* <FontAwesomeIcon icon={faTimes} /> */}
                         </span>                
                     </label>
                     <input
@@ -172,7 +172,7 @@ const SignUp = () => {
                             onBlur={() => setUserFocus(false)}
                     />
                     <p id="uidnote" className={userFocus && user && !validName ? "instructions" : "offscreen"}>
-                        <FontAwesomeIcon icon={faInfoCircle} />
+                        {/* <FontAwesomeIcon icon={faInfoCircle} /> */}
                         4 to 24 characters. <br />
                         Must begin with a letter.<br />
                         Letters, numbers, underscores, hyphens allowed.
@@ -182,11 +182,11 @@ const SignUp = () => {
                     <label htmlFor="email">
                         Email: 
                         <span className={validEmail ? "valid" : "hide"}>
-                            <FontAwesomeIcon icon={faCheck} />
+                            {/* <FontAwesomeIcon icon={faCheck} /> */}
                         </span>
                         <span className={validEmail ? "valid" : "hide"}></span>
                         <span className={validEmail || !email ? "hide" : "invalid"}>
-                            <FontAwesomeIcon icon={faTimes} />
+                            {/* <FontAwesomeIcon icon={faTimes} /> */}
                         </span> 
                     </label>
                     <input
@@ -200,7 +200,7 @@ const SignUp = () => {
                         onBlur={() => setEmailFocus(false)}
                     />
                     <p id="emailnote" className={emailFocus && !validEmail ? "instructions" : "offscreen"}>
-                        <FontAwesomeIcon icon={faInfoCircle} />
+                        {/* <FontAwesomeIcon icon={faInfoCircle} /> */}
                         Please enter a valid email.
                     </p>
 
@@ -208,10 +208,10 @@ const SignUp = () => {
                     <label htmlFor='password'>
                         Password: 
                         <span className={validPassword && password ? "valid" : "hide"}>
-                            <FontAwesomeIcon icon={faCheck} />
+                            {/* <FontAwesomeIcon icon={faCheck} /> */}
                         </span>
                         <span className={validPassword || !password ? "hide" : "invalid"}>
-                            <FontAwesomeIcon icon={faTimes} />
+                            {/* <FontAwesomeIcon icon={faTimes} /> */}
                         </span>
                     </label>
                     <input 
@@ -225,7 +225,7 @@ const SignUp = () => {
                             onBlur={ () => setPwdFocus(false)}
                     />
                     <p id="pwdnote" className={pwdFocus && !validPassword ? "instructions" : "offscreen"}>
-                        <FontAwesomeIcon icon={faInfoCircle} />
+                        {/* <FontAwesomeIcon icon={faInfoCircle} /> */}
                         8 to 24 characters.<br />
                         Must include uppercase and lowercase letters, a number, and a special character.<br />
                         Allowed special characters: <span aria-label="exclamation mark">!</span> <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span> <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
@@ -237,10 +237,10 @@ const SignUp = () => {
                     <label htmlFor='confirm_password'>
                         Confirm Password: 
                         <span className={validMatch && matchPwd ? "valid" : "hide"}>
-                            <FontAwesomeIcon icon={faCheck} />
+                            {/* <FontAwesomeIcon icon={faCheck} /> */}
                         </span>
                         <span className={validMatch || !matchPwd ? "hide" : "invalid"}>
-                            <FontAwesomeIcon icon={faTimes} />
+                            {/* <FontAwesomeIcon icon={faTimes} /> */}
                         </span>
                     </label>
                     <input 
@@ -254,7 +254,7 @@ const SignUp = () => {
                             onBlur={ () => setMatchFocus(false)}
                     />
                     <p id="confirmnote" className={matchFocus && !validMatch ? "instructions" : "offscreen"}>
-                        <FontAwesomeIcon icon={faInfoCircle} />
+                        {/* <FontAwesomeIcon icon={faInfoCircle} /> */}
                         Passwords do not match.
                     </p>
 

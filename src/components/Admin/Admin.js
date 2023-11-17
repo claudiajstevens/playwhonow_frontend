@@ -1,6 +1,8 @@
 import React from 'react';
 import Users from '../Users';
 
+import UploadLineupPoster from '../Festival/UploadLineupPoster';
+
 const Admin = () => {
     return (
         <div className='admin-page'>
@@ -8,6 +10,8 @@ const Admin = () => {
             <br />
             <Users />
             <br />
+
+            <UploadLineupPoster />
         </div>
     );
 };
