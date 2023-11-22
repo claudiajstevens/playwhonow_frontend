@@ -12,21 +12,21 @@ const Users = () => {
     const location = useLocation();
 
     useEffect( () => {
-        // let isMounted = true;
-        // const controller = new AbortController();
+        let isMounted = true;
+        const controller = new AbortController();
 
         const getUsers = async () => {
             try {
                 const response = await axiosPrivate.get('/user/users', {
-                    // signal: controller.signal
+                    signal: controller.signal
                 });
                 console.log(response.data);
-                // isMounted && 
+                isMounted && 
                 setUsers(response.data);
 
             } catch (error) {
                 console.error(error);
-                // navigate('/login', { state: {from: location}, replace: true});
+                navigate('/login', { state: {from: location}, replace: true});
             }
         }
 

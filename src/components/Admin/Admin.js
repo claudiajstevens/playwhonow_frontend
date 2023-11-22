@@ -11,7 +11,7 @@ const Admin = () => {
             <Users />
             <br />
 
-            <UploadLineupPoster />
+            {/* <UploadLineupPoster /> */}
         </div>
     );
 };

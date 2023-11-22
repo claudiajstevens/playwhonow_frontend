@@ -2,15 +2,17 @@ import { Outlet } from 'react-router-dom';
 import NavBar from './NavBar/NavBar';
 import Footer from './Footer'
 
-const Layout = ({ children }) => {
+const Layout = () => {
     return (
         <main className='App'>
             {/* <div className='page-wrapper'> */}
                 <NavBar />
-                <div className='app-pages'>{children}</div>
+                <div className='app-pages'>
+                    <Outlet />
+                </div>
+                
                 <Footer />
             {/* </div> */}
-            <Outlet />
         </main>
     );
 };

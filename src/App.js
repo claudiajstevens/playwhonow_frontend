@@ -27,6 +27,7 @@ import RequireAuth from './components/RequireAuth';
 import Admin from './components/Admin/Admin';
 import Unauthorized from './components/Unauthorized';
 import Missing from './components/Missing';
+import PersistLogin from './components/PersistLogin';
 
 const ROLES = {
   'User': 2,
@@ -68,22 +69,24 @@ function App() {
         {/* private protexted routes */}
 
           {/* user protected routes */}
-          <Route element={<RequireAuth allowedRoles={[ROLES.User, ROLES.Admin]}/>}>
-            <Route path="/profile" element={<Profile /> } />
-            <Route path="/festivals" element={<Festivals />}></Route>
+          <Route element={<PersistLogin />}>
+            <Route element={<RequireAuth allowedRoles={[ROLES.User, ROLES.Admin]}/>}>
+              <Route path="/profile" element={<Profile /> } />
+              <Route path="/festivals" element={<Festivals />}></Route>
+            </Route>
+
+            {/* admin protected routes */}
+            <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
+              <Route path="/admin" element={<Admin />} />
+            </Route>
+
+
+            <Route path="/profile" element={
+              <PrivateRoute>
+                  <Profile />
+              </PrivateRoute>
+            }></Route>
           </Route>
-
-          {/* admin protected routes */}
-          <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
-            <Route path="/admin" element={<Admin />} />
-          </Route>
-
-
-          <Route path="/profile" element={
-            <PrivateRoute>
-                <Profile />
-            </PrivateRoute>
-          }></Route>
 
 
 

@@ -1,15 +1,17 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import useAuth from '../../hooks/useAuth';
 import { useLocalState } from '../../util/useLocalStorage';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import "./Login.css"
+
 import axios from '../../api/axios';
+const LOGIN_URL = '/auth/login'
 
 // import AuthService from '../../services/authService';
 
-const LOGIN_URL = '/auth/login'
 
 const Login = () => {
-    const { setAuth } = useAuth();
+    const { setAuth, persist, setPersist } = useAuth();
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -32,15 +34,15 @@ const Login = () => {
         setErrMsg('');
     }, [username, password]);
 
-    const onChangeUsername = (e) => {
-        const username = e.target.value;
-        setUsername(username);
-    };
+    // const onChangeUsername = (e) => {
+    //     const username = e.target.value;
+    //     setUsername(username);
+    // };
 
-    const onChangePassword = (e) => {
-        const password = e.target.value;
-        setPassword(password);
-    }
+    // const onChangePassword = (e) => {
+    //     const password = e.target.value;
+    //     setPassword(password);
+    // }
 
 
     const handleLogin = async (e) => {
@@ -59,14 +61,14 @@ const Login = () => {
             // console.log(JSON.stringify(response));
             const accessToken = response?.data?.accessToken;
             const roles = response?.data?.user?.authorities;
+            setAuth({username, password, roles, accessToken});
             // let roles = JSON.stringify(response?.data?.user?.authorities);
             // let roles = response?.data?.user?.authorities;
             // roles = roles.map(role => role.roleId);
-            console.log("Roles: " + JSON.stringify(roles));
-            setAuth({username, password, roles, accessToken});
-            console.log("Access token: " + accessToken);
-            localStorage.setItem("access_token", accessToken);
-            localStorage.setItem("refresh_token", response?.data?.refreshToken);
+            // console.log("Roles: " + JSON.stringify(roles));
+            // console.log("Access token: " + accessToken);
+            // localStorage.setItem("access_token", accessToken);
+            // localStorage.setItem("refresh_token", response?.data?.refreshToken);
             setUsername('');
             setPassword('');
 
@@ -89,6 +91,14 @@ const Login = () => {
             errRef.current.focus();
         }
     }
+
+    const togglePersist = () => {
+        setPersist(prev => !prev);
+    }
+
+    useEffect( () => {
+        localStorage.setItem("persist", persist);
+    }, [persist]);
 
     return (
         <section className='register'>
@@ -118,6 +128,15 @@ const Login = () => {
                 />
 
                 <button className='register-btn'>Sign In</button>
+                <div className="persistCheck">
+                    <input 
+                        type="checkbox"
+                        id="persist"
+                        onChange={togglePersist}
+                        checked={persist}
+                    />
+                    <label htmlFor='persist'>Trust This Device</label>
+                </div>
             </form>
 
             <p>

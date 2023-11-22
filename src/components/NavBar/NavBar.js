@@ -4,24 +4,28 @@ import AuthContext from "../../context/AuthProvider";
 import useAuth from "../../hooks/useAuth";
 import playwhonow_logo from "../../assets/playwhonow_logo.svg";
 import "./NavBar.css";
+import axios from "../../api/axios";
+import useLogout from "../../hooks/useLogout";
 
 function NavBar() {
     const [showMenu, setShowMenu] = useState(false);
+    const logout = useLogout();
     const { auth } = useAuth();
-    const { setAuth } = useContext(AuthContext);
+    // const { setAuth } = useContext(AuthContext);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const toggleMenu = () => {
         setShowMenu(!showMenu);
     };
 
-    const logout = () => {
-        setAuth({});
+    const signOut = async () => {
+        await logout();
+        console.log(auth);
     }
 
     useEffect(() => {
         console.log( auth );
-        if (auth.username) {
+        if (auth.roles) {
             console.log("Signed in");
             setIsLoggedIn(true);
             // return <li><NavLink to="/login" onClick={toggleMenu}>Login</NavLink></li>
@@ -55,7 +59,7 @@ function NavBar() {
                                 <li><NavLink to="/admin">Admin</NavLink></li>
                                 <li><NavLink to="/festivals">Festivals</NavLink></li>
                                 <li><NavLink to="/profile" onClick={toggleMenu}>Profile</NavLink></li>
-                                { isLoggedIn ? <li><NavLink to="/login" onClick={logout}>Sign Out</NavLink></li>
+                                { isLoggedIn ? <li><NavLink to="/login" onClick={signOut}>Sign Out</NavLink></li>
                                             : <li><NavLink to="/login" onClick={toggleMenu}>Login</NavLink></li>
                                 }
                                 {/* <li><NavLink to="/login" onClick={toggleMenu}>Login</NavLink></li> */}
