@@ -15,7 +15,7 @@ import NavBar from './components/NavBar/NavBar';
 import Hero from './components/Hero/Hero';
 import Home from './views/Home';
 import Profile from './views/Profile';
-import { useLocalState } from './util/useLocalStorage';
+import { useLocalState } from './hooks/useLocalStorage';
 import Login from './components/Login/Login';
 import PrivateRoute from './PrivateRoute/PrivateRoute';
 import SignUp from './components/SignUp/SignUp';

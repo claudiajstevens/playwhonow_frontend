@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect, useContext } from 'react';
 import useAuth from '../../hooks/useAuth';
-import { useLocalState } from '../../util/useLocalStorage';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import useInput from '../../hooks/useInput';
+import useToggle from '../../hooks/useToggle';
 import "./Login.css"
 
 import axios from '../../api/axios';
@@ -11,7 +12,7 @@ const LOGIN_URL = '/auth/login'
 
 
 const Login = () => {
-    const { setAuth, persist, setPersist } = useAuth();
+    const { setAuth } = useAuth();
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -20,9 +21,11 @@ const Login = () => {
     const userRef = useRef();
     const errRef = useRef();
 
-    const [username, setUsername] = useState("");
+    const [username, resetUser, userAttribs] = useInput('username', '');
     const [password, setPassword] = useState("");
     const [errMsg, setErrMsg] = useState("");
+
+    const [check, toggleCheck] = useToggle('persit', false);
 
     // sets the focus to the username input field
     useEffect( () => {
@@ -69,7 +72,8 @@ const Login = () => {
             // console.log("Access token: " + accessToken);
             // localStorage.setItem("access_token", accessToken);
             // localStorage.setItem("refresh_token", response?.data?.refreshToken);
-            setUsername('');
+            //setUsername('');
+            resetUser();
             setPassword('');
 
             // this will send user back to page they were trying to access before they had to log on
@@ -92,13 +96,13 @@ const Login = () => {
         }
     }
 
-    const togglePersist = () => {
-        setPersist(prev => !prev);
-    }
+    // const togglePersist = () => {
+    //     setPersist(prev => !prev);
+    // }
 
-    useEffect( () => {
-        localStorage.setItem("persist", persist);
-    }, [persist]);
+    // useEffect( () => {
+    //     localStorage.setItem("persist", persist);
+    // }, [persist]);
 
     return (
         <section className='register'>
@@ -112,8 +116,7 @@ const Login = () => {
                     type="text" 
                     id="username"
                     ref={userRef}
-                    onChange={(e) => setUsername(e.target.value)}
-                    value={username}
+                    {...userAttribs}
                     required
                 />
 
@@ -132,8 +135,8 @@ const Login = () => {
                     <input 
                         type="checkbox"
                         id="persist"
-                        onChange={togglePersist}
-                        checked={persist}
+                        onChange={toggleCheck}
+                        checked={check}
                     />
                     <label htmlFor='persist'>Trust This Device</label>
                 </div>
