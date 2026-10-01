@@ -9,22 +9,34 @@ import Hero from "../components/Hero/Hero";
 import UpcomingFestivals from "../components/Festival/UpcomingFestivals/UpcomingFestivals";
 // import background from "../assets/background.png";
 
+interface Artist {
+  id: string;
+  name: string;
+  images: { url: string }[];
+}
+
+// TODO: replace with the real shape returned by GET /festivals
+interface Festival {
+  [key: string]: unknown;
+}
+
+
 const Home = () => {
     // const CLIENT_ID = process.env.REACT_APP_SPOTIFY_CLIENT_ID;  //"58f1e32db8984bf8a52539fb48a602e1"
     // const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
     // const RESPONSE_TYPE = "token"
   
-    const [token, setToken] = useState("")
-    const [upcomingFestivals, setUpcomingFestivals] = useState([])
+    const [token, setToken] = useState<string | null>(null)
+    const [upcomingFestivals, setUpcomingFestivals] = useState<Festival[]>([])
 
     // const SCOPES = ["user-read-currently-playing", "user-read-playback-state"];
 
     const apiUrl = process.env.REACT_APP_API_URL;
 
-      // for fetching data
-      const [searchKey, setSearchKey] = useState("")
-      const [artists, setArtists] = useState([])
-      //const [songs, setSongs] = useState([])
+    // for fetching data
+    const [searchKey, setSearchKey] = useState<string>("");
+    const [artists, setArtists] = useState<Artist[]>([]);
+    //const [songs, setSongs] = useState([])
   
     useEffect( () => {
       const storedAuthToken = localStorage.getItem('access_token');
@@ -56,7 +68,7 @@ const Home = () => {
     // }
   
   
-    const searchArtists = async (e) => {
+    const searchArtists = async (e: React.ChangeEvent<HTMLFormElement>) => {
       e.preventDefault()
       const {data} = await axios.get("https://api.spotify.com/v1/search", {
         headers: {
