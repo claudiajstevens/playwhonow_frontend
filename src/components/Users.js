@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
-import axios from "../api/axios";
+// import axios from "../api/axios";
 import useRefreshToken from "../hooks/useRefreshToken";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -20,9 +20,10 @@ const Users = () => {
                 const response = await axiosPrivate.get('/user/users', {
                     signal: controller.signal
                 });
+                const userNames = response.data.map(user => user.username);
                 console.log(response.data);
                 isMounted && 
-                setUsers(response.data);
+                setUsers(userNames);
 
             } catch (error) {
                 console.error(error);
@@ -46,7 +47,7 @@ const Users = () => {
             {users?.length
                 ? (
                     <ul>
-                        {users.map((user, i) => <li key={i}>{user?.username}</li>)}
+                        {users.map((user, i) => <li key={i}>{user}</li>)}
                     </ul>
                 ) : <p>No users to display</p>
             }

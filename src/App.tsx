@@ -70,13 +70,14 @@ function App() {
 
           {/* user protected routes */}
           <Route element={<PersistLogin />}>
-            <Route element={<RequireAuth allowedRoles={[ROLES.User, ROLES.Admin]}/>}>
+          <Route element={<RequireAuth allowedRoles={[ROLES.User, ROLES.Admin, "ADMIN", "USER"]}/>}>
+            {/* <Route element={<RequireAuth allowedRoles={["ROLES.User", ROLES.Admin]}/>}> */}
               <Route path="/profile" element={<Profile /> } />
               <Route path="/festivals" element={<Festivals />}></Route>
             </Route>
 
             {/* admin protected routes */}
-            <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
+            <Route element={<RequireAuth allowedRoles={[ROLES.Admin, "ADMIN"]} />}>
               <Route path="/admin" element={<Admin />} />
             </Route>
 

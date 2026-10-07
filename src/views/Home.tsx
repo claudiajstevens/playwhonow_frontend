@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import axios from 'axios';
+// import axios from 'axios';
+import axios from "../api/axios";
 
 import Hero from "../components/Hero/Hero";
 // import SpotifyLogin from "../components/SpotifyLogin";
@@ -36,6 +37,8 @@ const Home = () => {
     // for fetching data
     const [searchKey, setSearchKey] = useState<string>("");
     const [artists, setArtists] = useState<Artist[]>([]);
+
+      const [img, setImg] = useState("");
     //const [songs, setSongs] = useState([])
   
     useEffect( () => {
@@ -45,6 +48,25 @@ const Home = () => {
         // console.log("setting access token: " + storedAuthToken);
         setToken(storedAuthToken);
       }
+    }, []);
+
+    useEffect( () => {
+
+      const getImg = async () => {
+        try {
+            const response = await axios.get('/lineup/47/lineup-poster');
+            const lineupPosterUrl = response.data;
+            console.log(response.data);
+            setImg(lineupPosterUrl);
+
+        } catch (error) {
+            console.error(error);
+        }
+      }
+
+      getImg();
+
+      
     }, []);
 
     // useEffect( () => {
@@ -151,7 +173,7 @@ const Home = () => {
             {/* {renderArtists()}
 
             <Searcher token={token} /> */}
-
+            <img src={img} alt="lineup image"/>
             <div className="upcomingFests">
               <h1>Upcoming Festivals</h1>
               <UpcomingFestivals />

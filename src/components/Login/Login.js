@@ -64,7 +64,7 @@ const Login = () => {
             // console.log(JSON.stringify(response));
             const accessToken = response?.data?.accessToken;
             const roles = response?.data?.user?.authorities;
-            setAuth({username, password, roles, accessToken});
+            setAuth({username, roles, accessToken});
             // let roles = JSON.stringify(response?.data?.user?.authorities);
             // let roles = response?.data?.user?.authorities;
             // roles = roles.map(role => role.roleId);

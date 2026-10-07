@@ -9,6 +9,7 @@ const UploadLineupPoster = () => {
     const [suggestions, setSuggestions] = useState([]);
 
 
+
     useEffect( () => {
         console.log(query);
         const fetchData = async () => {

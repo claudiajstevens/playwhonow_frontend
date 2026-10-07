@@ -2,6 +2,7 @@ import React from 'react';
 import Users from '../Users';
 
 import UploadLineupPoster from '../Festival/UploadLineupPoster';
+import FileUpload from '../FileUpload';
 
 const Admin = () => {
     return (
@@ -10,6 +11,7 @@ const Admin = () => {
             <br />
             <Users />
             <br />
+            <FileUpload />
 
             {/* <UploadLineupPoster /> */}
         </div>
