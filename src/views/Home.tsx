@@ -9,17 +9,7 @@ import Hero from "../components/Hero/Hero";
 // import SpotifyAuth from "../util/SpotifyAuth";
 import UpcomingFestivals from "../components/Festival/UpcomingFestivals/UpcomingFestivals";
 // import background from "../assets/background.png";
-
-interface Artist {
-  id: string;
-  name: string;
-  images: { url: string }[];
-}
-
-// TODO: replace with the real shape returned by GET /festivals
-interface Festival {
-  [key: string]: unknown;
-}
+import { Artist, Festival } from "../types/festivals";
 
 
 const Home = () => {
@@ -32,7 +22,7 @@ const Home = () => {
 
     // const SCOPES = ["user-read-currently-playing", "user-read-playback-state"];
 
-    const apiUrl = process.env.REACT_APP_API_URL;
+    const apiUrl = process.env.REACT_APP_API_URL ?? "";
 
     // for fetching data
     const [searchKey, setSearchKey] = useState<string>("");
@@ -90,7 +80,7 @@ const Home = () => {
     // }
   
   
-    const searchArtists = async (e: React.ChangeEvent<HTMLFormElement>) => {
+    const searchArtists = async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault()
       const {data} = await axios.get("https://api.spotify.com/v1/search", {
         headers: {

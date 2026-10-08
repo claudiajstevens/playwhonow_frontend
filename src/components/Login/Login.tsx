@@ -18,18 +18,18 @@ const Login = () => {
     const location = useLocation();
     const from = location.state?.from?.pathname || "/";
 
-    const userRef = useRef();
-    const errRef = useRef();
+    const userRef = useRef<HTMLInputElement>(null);
+    const errRef = useRef<HTMLParagraphElement>(null);
 
     const [username, resetUser, userAttribs] = useInput('username', '');
     const [password, setPassword] = useState("");
     const [errMsg, setErrMsg] = useState("");
 
-    const [check, toggleCheck] = useToggle('persit', false);
+    const [check, toggleCheck] = useToggle('persist', false);
 
     // sets the focus to the username input field
     useEffect( () => {
-        userRef.current.focus();
+        userRef.current?.focus();
     }, []);
 
     // clears out error message when user changes input
@@ -48,7 +48,7 @@ const Login = () => {
     // }
 
 
-    const handleLogin = async (e) => {
+    const handleLogin = async (e: React.FormEvent<HTMLFormElement>)=> {
         e.preventDefault();
 
         try {
@@ -80,7 +80,7 @@ const Login = () => {
             // or sends back to home page otherwise
             navigate(from, { replace: true });
 
-        } catch (err) {
+        } catch (err: any) {
             if (!err?.response) {
                 setErrMsg('No Server Response');
             } else if (err.response?.status === 400){
@@ -92,7 +92,7 @@ const Login = () => {
                 setErrMsg('Login Failed');
             }
 
-            errRef.current.focus();
+            errRef.current?.focus();
         }
     }
 
@@ -135,7 +135,7 @@ const Login = () => {
                     <input 
                         type="checkbox"
                         id="persist"
-                        onChange={toggleCheck}
+                        onChange={() => toggleCheck()}
                         checked={check}
                     />
                     <label htmlFor='persist'>Trust This Device</label>
